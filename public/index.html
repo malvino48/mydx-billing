@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGNCOM MyDX — Gas Billing Management System</title>
+<meta name="description" content="PGNCOM MyDX Gas Billing — Sistem manajemen tagihan gas bumi berstandar Permen ESDM 15/2022. Validasi HGBT, kalkulasi postpaid & hybrid, konversi JISDOR + PPN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">
+      <!-- Full logo: OMNI X — visible when sidebar expanded -->
+      <div class="logo-full">
+        <svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:110px;height:36px">
+          <text x="0" y="28" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="900" font-style="italic" font-size="22" letter-spacing="1">OMNI</text>
+          <g transform="translate(68, 2)">
+            <path d="M4 8L20 28H28L12 8H4Z" fill="#FFFFFF"/>
+            <path d="M4 28L24 6H32L12 28H4Z" fill="#FFFFFF"/>
+            <rect x="29" y="3" width="2" height="2" fill="#FFFFFF"/>
+            <rect x="32" y="1" width="1.5" height="1.5" fill="#FFFFFF"/>
+            <rect x="33" y="4" width="1.5" height="1.5" fill="#FFFFFF"/>
+          </g>
+        </svg>
+      </div>
+      <!-- Icon logo: X only — visible when sidebar collapsed -->
+      <div class="logo-icon">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px">
+          <path d="M4 8L20 28H28L12 8H4Z" fill="#FFFFFF"/>
+          <path d="M4 28L24 6H32L12 28H4Z" fill="#FFFFFF"/>
+          <rect x="29" y="3" width="2.5" height="2.5" fill="#FFFFFF"/>
+          <rect x="32" y="1" width="2" height="2" fill="#FFFFFF"/>
+          <rect x="33" y="5" width="2" height="2" fill="#FFFFFF"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" id="nav-dashboard" data-view="dashboard">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" id="nav-regulations" data-view="regulations">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Report Management</span>
+      <span class="nav-new-badge">New</span>
+    </button>
+    <button class="nav-item" id="nav-reports" data-view="regulations">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Report</span>
+    </button>
+    <button class="nav-item" id="nav-setting" data-view="masterdata">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>Setting</span>
+    </button>
+    <button class="nav-item" id="nav-masterdata" data-view="masterdata">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Master Data</span>
+    </button>
+    <button class="nav-item" id="nav-tickets" data-view="tickets">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Transaction</span>
+      <span class="nav-badge" id="ticketBadge">—</span>
+    </button>
+    <button class="nav-item" id="nav-jisdor" data-view="jisdor">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Kurs JISDOR</span>
+    </button>
+    <button class="nav-item" id="nav-qa" data-view="tickets">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>QA Evaluation</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer-chat">
+    <button class="chat-btn" title="Support Chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="8" cy="10" r="1" fill="currentColor"/><circle cx="12" cy="10" r="1" fill="currentColor"/><circle cx="16" cy="10" r="1" fill="currentColor"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<div class="main" id="main">
+
+  <!-- Top Bar -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-left">
+      <button class="menu-toggle-btn" id="toggleSidebar" title="Toggle Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-pill-badge">Mydx</span>
+      <button class="topbar-icon-btn" title="Manual & Documentation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </button>
+      <button class="topbar-icon-btn notification-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-badge">6</span>
+      </button>
+      <div class="user-profile">
+        <div class="user-info">
+          <span class="user-name">malvino</span>
+          <span class="user-role">ADMIN</span>
+        </div>
+        <div class="user-avatar">m</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Area -->
+  <div class="content-area" id="contentArea">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <div>Memuat...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Buat Tiket Baru ── -->
+<div class="modal-overlay" id="newTicketModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Buat Billing Ticket Baru</h2>
+      <button class="modal-close" id="closeModal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Periode Billing</label>
+        <input type="month" class="form-input" id="modalPeriod" value="2026-07">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Customer</label>
+        <select class="form-select" id="modalCustomerSelect">
+          <option value="">— Pilih Customer —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kontrak</label>
+        <select class="form-select" id="modalContractSelect" disabled>
+          <option value="">— Pilih Customer Terlebih Dahulu —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catatan</label>
+        <textarea class="form-input" id="modalNotes" rows="2" placeholder="Opsional..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="cancelModal">Batal</button>
+      <button class="btn btn-primary" id="submitNewTicket">Buat Tiket</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Slide Panel: Ticket Detail ── -->
+<div class="slide-panel" id="ticketPanel">
+  <div class="slide-panel-inner">
+    <div class="panel-topbar">
+      <div>
+        <div class="panel-ticket-id" id="panelTicketId">—</div>
+        <div class="panel-ticket-title" id="panelTicketTitle">—</div>
+      </div>
+      <button class="panel-close" id="closePanelBtn">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody">
+      <!-- Diisi oleh JS -->
+    </div>
+  </div>
+</div>
+<div class="panel-overlay" id="panelOverlay"></div>
+
+<!-- ── Modal: Master Data CRUD ── -->
+<div class="modal-overlay" id="mdCrudModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2 id="mdCrudModalTitle">Tambah Data</h2>
+      <button class="modal-close" id="closeMdCrudModal">✕</button>
+    </div>
+    <div class="modal-body" id="mdCrudModalBody">
+      <!-- Diisi dinamis oleh JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="cancelMdCrud">Batal</button>
+      <button class="btn btn-primary" id="submitMdCrud">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "pgncom-gas-billing-prototype",
+  "version": "1.0.0",
+  "description": "PGNCOM Gas Billing Discovery Prototype - working full-stack prototype (Node/Express/SQLite)",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "seed": "node server/seed.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
